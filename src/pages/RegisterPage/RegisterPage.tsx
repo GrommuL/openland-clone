@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import style from './RegisterPage.module.scss'
+import Logo from '@/assets/Logo.png'
 import { CameraIcon } from '@/components/UI/Icons/CameraIcon'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/UI/Button'
@@ -9,6 +10,7 @@ export const RegisterPage = () => {
 	return (
 		<main className={cn(style.registerPage)}>
 			<form className={cn(style.content)}>
+				<img className={cn(style.logo)} src={Logo} alt='Logo' />
 				<Heading
 					title='New account'
 					descirption='Sign up now and gain access to exclusive content!'
