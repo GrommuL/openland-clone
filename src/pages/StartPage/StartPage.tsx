@@ -2,6 +2,7 @@ import Logo from '@/assets/Logo.png'
 import cn from 'classnames'
 import style from './StartPage.module.scss'
 import { LinkButton } from '@/components/UI/LinkButton'
+import { Heading } from '@/components/UI/Heading'
 
 export const StartPage = () => {
 	return (
@@ -9,14 +10,10 @@ export const StartPage = () => {
 			<div className={cn(style.content)}>
 				<div className={cn(style.box)}>
 					<img className={cn(style.logo)} src={Logo} alt='Logo' />
-					<div className={cn(style.info)}>
-						<h1 className={cn(style.title)}>Openland</h1>
-						<p className={cn(style.description)}>
-							Modern social network
-							<br />
-							built for you, not advertisers
-						</p>
-					</div>
+					<Heading
+						title='Openland'
+						descirption='Modern social network built for you, not advertisers'
+					/>
 				</div>
 				<div className={cn(style.buttons)}>
 					<LinkButton label='Login' href='/login' />
