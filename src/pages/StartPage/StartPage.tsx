@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import Logo from '@/assets/Logo.png'
 import cn from 'classnames'
 import style from './StartPage.module.scss'
+import { LinkButton } from '@/components/UI/LinkButton'
 
 export const StartPage = () => {
 	return (
@@ -19,8 +19,8 @@ export const StartPage = () => {
 					</div>
 				</div>
 				<div className={cn(style.buttons)}>
-					<Link to='/'>Login</Link>
-					<Link to='/'>Register</Link>
+					<LinkButton label='Login' href='/login' />
+					<LinkButton label='Register' href='/register' grey />
 				</div>
 			</div>
 		</main>

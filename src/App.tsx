@@ -1,10 +1,9 @@
-import React from 'react'
-import { StartPage } from '@/pages/StartPage'
+import { RegisterPage } from '@/pages/RegisterPage'
 
 export const App = () => {
 	return (
 		<main>
-			<StartPage />
+			<RegisterPage />
 		</main>
 	)
 }
