@@ -1,0 +1,42 @@
+@import '@/styles/vars.scss';
+
+.loginPage {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+	padding: 0px 10px;
+}
+.logo {
+	width: 128px;
+	height: 128px;
+}
+.inputsContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	width: 100%;
+}
+.input {
+	font-weight: 600;
+	padding: 16px;
+	width: 100%;
+	max-width: 320px;
+	border-radius: 8px;
+	background: rgba(201, 204, 209, 0.24);
+	&::placeholder {
+		color: $fgTertiary;
+	}
+	&:focus {
+		background: rgba(169, 174, 184, 0.24);
+	}
+}
