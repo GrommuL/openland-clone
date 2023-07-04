@@ -1,12 +1,10 @@
-import { RegisterPage } from '@/pages/RegisterPage'
-import { StartPage } from '@/pages/StartPage'
-import { LoginPage } from '@/pages/LoginPage'
+import { StartPage, RegisterPage, LoginPage } from '@/pages'
 
 export const App = () => {
 	return (
 		<main>
-			<RegisterPage />
-			{/* <StartPage /> */}
+			{/* <RegisterPage /> */}
+			<StartPage />
 			{/* <LoginPage /> */}
 		</main>
 	)
