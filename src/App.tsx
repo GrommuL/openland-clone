@@ -1,11 +1,14 @@
+import { Route, Routes } from 'react-router-dom'
 import { StartPage, RegisterPage, LoginPage } from '@/pages'
 
 export const App = () => {
 	return (
-		<main>
-			{/* <RegisterPage /> */}
-			<StartPage />
-			{/* <LoginPage /> */}
-		</main>
+		<>
+			<Routes>
+				<Route path='/start' element={<StartPage />} />
+				<Route path='/login' element={<LoginPage />} />
+				<Route path='/register' element={<RegisterPage />} />
+			</Routes>
+		</>
 	)
 }
