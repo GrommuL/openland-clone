@@ -1,0 +1,16 @@
+@import '@/styles/vars.scss';
+
+.button {
+	height: 40px;
+	padding: 0px 24px;
+	border-radius: 8px;
+	background: $accentPrimary;
+	color: $bgPrimary;
+	transition: all 0.2s ease;
+	&:hover {
+		background: $accentHoverPrimary;
+	}
+	&:active {
+		background: $accentPressedPrimary;
+	}
+}

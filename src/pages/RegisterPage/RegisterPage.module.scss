@@ -12,6 +12,7 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 32px;
+	padding: 0px 10px;
 }
 .info {
 	display: flex;
@@ -28,6 +29,7 @@
 }
 .description {
 	max-width: 320px;
+	word-wrap: break-word;
 	text-align: center;
 	color: $fgSecondary;
 }
@@ -37,6 +39,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: 16px;
+	width: 100%;
 }
 .downloadImage {
 	position: relative;
@@ -66,7 +69,8 @@
 .input {
 	font-weight: 600;
 	padding: 16px;
-	min-width: 320px;
+	width: 100%;
+	max-width: 320px;
 	border-radius: 8px;
 	background: rgba(201, 204, 209, 0.24);
 	&::placeholder {

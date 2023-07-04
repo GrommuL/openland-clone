@@ -2,6 +2,7 @@ import cn from 'classnames'
 import style from './RegisterPage.module.scss'
 import { CameraIcon } from '@/components/UI/Icons/CameraIcon'
 import { Link } from 'react-router-dom'
+import { Button } from '@/components/UI/Button'
 
 export const RegisterPage = () => {
 	return (
@@ -31,7 +32,7 @@ export const RegisterPage = () => {
 						placeholder='Password'
 					/>
 				</div>
-				<button>Next</button>
+				<Button label='Sign up' type='submit' />
 				<span className={cn(style.warning)}>
 					By creating an account you are accepting our
 					<div className={style.warningContainer}>
