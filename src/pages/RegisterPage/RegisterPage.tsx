@@ -3,17 +3,16 @@ import style from './RegisterPage.module.scss'
 import { CameraIcon } from '@/components/UI/Icons/CameraIcon'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/UI/Button'
+import { Heading } from '@/components/UI/Heading'
 
 export const RegisterPage = () => {
 	return (
 		<main className={cn(style.registerPage)}>
 			<form className={cn(style.content)}>
-				<div className={cn(style.info)}>
-					<h1 className={cn(style.title)}>New account</h1>
-					<p className={cn(style.description)}>
-						Sign up now and gain access to exclusive content!
-					</p>
-				</div>
+				<Heading
+					title='New account'
+					descirption='Sign up now and gain access to exclusive content!'
+				/>
 				<div className={cn(style.inputsContainer)}>
 					<div className={cn(style.downloadImage)}>
 						<input
