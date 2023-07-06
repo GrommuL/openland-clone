@@ -11,7 +11,7 @@ export const sidebarButtons = [
 	},
 	{
 		icon: FaRegUser,
-		size: 22,
+		size: 20,
 		href: '/'
 	},
 	{
