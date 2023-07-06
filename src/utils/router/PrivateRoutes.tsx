@@ -1,6 +1,7 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Layout } from '@/components/Layout'
+import { Navigate } from 'react-router-dom'
 
 export const PrivateRoutes = () => {
 	const auth = false
-	return auth ? <Outlet /> : <Navigate to='/start' />
+	return auth ? <Layout /> : <Navigate to='/start' />
 }
