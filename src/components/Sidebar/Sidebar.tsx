@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { BiLogOut } from 'react-icons/bi'
 import { LinkButtonWithIcon } from '../UI/LinkButtonWithIcon'
 import { sidebarButtons } from '@/constants/sidebarButtons'
+import { ButtonWithIcon } from '../UI/ButtonWithIcon'
 
 export const Sidebar = () => {
 	return (
@@ -22,9 +23,7 @@ export const Sidebar = () => {
 					/>
 				))}
 			</div>
-			<button className={cn(style.btn)}>
-				<BiLogOut size={24} />
-			</button>
+			<ButtonWithIcon icon={BiLogOut} size={24} />
 		</aside>
 	)
 }
