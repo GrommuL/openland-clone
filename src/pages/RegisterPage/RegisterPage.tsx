@@ -11,12 +11,14 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth, db, storage } from '@/config/firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
+import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
+import { getAccess } from '@/redux/slices/userSlice'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
 	const [avatar, setAvatar] = useState<File>()
 	const uploadAvatar = avatar && URL.createObjectURL(avatar)
-
+	const dispatch = useAppDispatch()
 	const {
 		register,
 		handleSubmit,
@@ -66,6 +68,7 @@ export const RegisterPage = () => {
 					await setDoc(doc(db, 'userChats', response.user.uid), {})
 				})
 			})
+			dispatch(getAccess(true))
 			reset()
 			navigate('/')
 		} catch (error) {
