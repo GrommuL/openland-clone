@@ -45,7 +45,10 @@ export const RegisterPage = () => {
 				data.password
 			)
 			const dateMark = new Date().getTime()
-			const storageRef = ref(storage, `${data.firstName + dateMark}`)
+			const storageRef = ref(
+				storage,
+				`${data.firstName + data.lastName + dateMark}`
+			)
 
 			await uploadBytesResumable(storageRef, data.avatar[0]).then(() => {
 				getDownloadURL(storageRef).then(async (downloadUrl) => {
