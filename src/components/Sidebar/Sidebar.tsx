@@ -16,6 +16,7 @@ export const Sidebar = () => {
 				</Link>
 				{sidebarButtons.map((btn) => (
 					<LinkButtonWithIcon
+						key={btn.label}
 						icon={btn.icon}
 						size={btn.size}
 						href={btn.href}
