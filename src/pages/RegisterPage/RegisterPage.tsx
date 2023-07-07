@@ -63,6 +63,7 @@ export const RegisterPage = () => {
 						email: data.email,
 						photoURL: downloadUrl
 					})
+					await setDoc(doc(db, 'userChats', response.user.uid), {})
 				})
 			})
 			reset()
