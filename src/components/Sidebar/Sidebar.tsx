@@ -8,11 +8,15 @@ import { sidebarButtons } from '@/constants/sidebarButtons'
 import { ButtonWithIcon } from '../UI/ButtonWithIcon'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/config/firebase'
+import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
+import { clearCurrentUser } from '@/redux/slices/userSlice'
 
 export const Sidebar = () => {
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const logOut = () => {
 		signOut(auth)
+		dispatch(clearCurrentUser())
 		navigate('/start')
 	}
 	return (
