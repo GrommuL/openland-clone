@@ -1,12 +1,16 @@
+import { AuthType } from '@/types/AuthType'
 import { UserType } from '@/types/UserType'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState: UserType = {
-	id: '',
-	firstName: '',
-	lastName: '',
-	avatar: '',
-	email: ''
+const initialState: AuthType = {
+	access: false,
+	currentUser: {
+		id: '',
+		firstName: '',
+		lastName: '',
+		avatar: '',
+		email: ''
+	}
 }
 
 const userSlice = createSlice({
@@ -14,22 +18,23 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		addCurrentUser: (state, action: PayloadAction<UserType>) => {
-			state.id = action.payload.id
-			state.firstName = action.payload.firstName
-			state.lastName = action.payload.lastName
-			state.avatar = action.payload.avatar
-			state.email = action.payload.email
+			state.currentUser = action.payload
 		},
 		clearCurrentUser: (state) => {
-			state.id = ''
-			state.firstName = ''
-			state.lastName = ''
-			state.avatar = ''
-			state.email = ''
+			state.currentUser = {
+				id: '',
+				firstName: '',
+				lastName: '',
+				avatar: '',
+				email: ''
+			}
+		},
+		getAccess: (state, action: PayloadAction<boolean>) => {
+			state.access = action.payload
 		}
 	}
 })
 
-export const { addCurrentUser, clearCurrentUser } = userSlice.actions
+export const { addCurrentUser, clearCurrentUser, getAccess } = userSlice.actions
 
 export default userSlice.reducer
