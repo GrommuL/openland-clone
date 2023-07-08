@@ -1,0 +1,44 @@
+@import '@/styles/vars.scss';
+
+.searchBox {
+	padding: 0px 16px 16px;
+}
+.search {
+	width: 100%;
+	padding: 8px 12px;
+	background: rgba(201, 204, 209, 0.24);
+	&::placeholder {
+		color: $fgTertiary;
+	}
+}
+
+.user {
+	width: 100%;
+	padding: 8px 16px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	&:hover {
+		background: $bgSecondary;
+	}
+}
+.avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+.userInfo {
+	display: flex;
+	flex-direction: column;
+}
+.userName {
+	font-weight: 600;
+}
+.status {
+	padding-left: 2px;
+	font-size: 14px;
+	line-height: 20px;
+	color: $accentPrimary;
+}

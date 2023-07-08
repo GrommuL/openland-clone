@@ -1,10 +1,5 @@
 @import '@/styles/vars.scss';
 
-.appContent {
-	display: flex;
-	width: 100%;
-	min-width: 100%;
-}
 .appSidebar {
 	width: 20%;
 	border-right: 1px solid rgba(0, 0, 0, 0.08);
@@ -16,17 +11,7 @@
 	line-height: 32px;
 	letter-spacing: 0.36px;
 }
-.appSearchBox {
-	padding: 0px 16px 16px;
-}
-.appSearch {
-	width: 100%;
-	padding: 8px 12px;
-	background: rgba(201, 204, 209, 0.24);
-	&::placeholder {
-		color: $fgTertiary;
-	}
-}
+
 .appInfo {
 	width: 80%;
 }

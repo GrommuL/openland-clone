@@ -6,7 +6,7 @@ import {
 	LoginPage,
 	HomePage,
 	NotFoundPage,
-	ContactsPage
+	UserPage
 } from '@/pages'
 
 export const App = () => {
@@ -15,7 +15,7 @@ export const App = () => {
 			<Routes>
 				<Route element={<PrivateRoutes />}>
 					<Route path='/' element={<HomePage />} />
-					<Route path='/contacts' element={<ContactsPage />} />
+					<Route path='/user' element={<UserPage />} />
 				</Route>
 				<Route path='/start' element={<StartPage />} />
 				<Route path='/login' element={<LoginPage />} />

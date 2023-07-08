@@ -13,8 +13,8 @@ export const sidebarButtons = [
 	{
 		icon: FaRegUser,
 		size: 20,
-		href: '/contacts',
-		label: 'contacts'
+		href: '/user',
+		label: 'user'
 	},
 	{
 		icon: BiMessageRounded,
