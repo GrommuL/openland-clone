@@ -13,10 +13,11 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
 import { getAccess } from '@/redux/slices/userSlice'
+import { useUploadImgage } from '@/utils/hooks/useUploadImage'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
-	const [avatar, setAvatar] = useState<File>()
+	const { avatar, getUploadImage } = useUploadImgage()
 	const uploadAvatar = avatar && URL.createObjectURL(avatar)
 	const dispatch = useAppDispatch()
 	const {
@@ -33,12 +34,6 @@ export const RegisterPage = () => {
 		}
 	})
 
-	const getUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files) {
-			const img = e.target.files[0]
-			setAvatar(img)
-		}
-	}
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			const response = await createUserWithEmailAndPassword(
