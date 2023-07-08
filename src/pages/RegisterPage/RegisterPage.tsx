@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export const RegisterPage = () => {
@@ -66,19 +66,19 @@ export const RegisterPage = () => {
 						email: data.email,
 						photoURL: downloadUrl
 					})
+					dispatch(
+						addCurrentUser({
+							id: response.user.uid,
+							firstName: data.firstName,
+							lastName: data.lastName,
+							email: data.email,
+							avatar: downloadUrl
+						})
+					)
 					await setDoc(doc(db, 'userChats', response.user.uid), {})
 				})
 			})
-			const currentUser = await getDoc(doc(db, 'users', response.user.uid))
-			const responseData = currentUser.data()
-			const user = {
-				id: responseData?.uid,
-				firstName: responseData?.firstName,
-				lastName: responseData?.lastName,
-				email: responseData?.email,
-				avatar: responseData?.photoURL
-			}
-			dispatch(addCurrentUser(user))
+
 			dispatch(getAccess(true))
 			reset()
 			navigate('/')
