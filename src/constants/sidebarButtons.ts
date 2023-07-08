@@ -13,7 +13,7 @@ export const sidebarButtons = [
 	{
 		icon: FaRegUser,
 		size: 20,
-		href: '/',
+		href: '/contacts',
 		label: 'contacts'
 	},
 	{
