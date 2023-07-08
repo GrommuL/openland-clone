@@ -19,21 +19,21 @@ export const sidebarButtons = [
 	{
 		icon: BiMessageRounded,
 		size: 24,
-		href: '/',
+		href: '/messages',
 		length: 3,
 		label: 'messages'
 	},
 	{
 		icon: IoNotificationsOutline,
 		size: 24,
-		href: '/',
+		href: '/notification',
 		length: 1,
 		label: 'notification'
 	},
 	{
 		icon: GoGear,
 		size: 24,
-		href: '/',
+		href: '/settings',
 		label: 'settings'
 	}
 ]

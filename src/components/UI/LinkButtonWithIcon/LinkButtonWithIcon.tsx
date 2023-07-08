@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { IconType } from 'react-icons'
 import cn from 'classnames'
 import style from './LinkButtonWithIcon.module.scss'
@@ -17,10 +17,15 @@ export const LinkButtonWithIcon: React.FC<LinkButtonWithIconProps> = ({
 	href,
 	length
 }) => {
+	const { pathname } = useLocation()
 	return (
-		<Link className={cn(style.btn)} to={href}>
+		<Link
+			className={cn(style.btn, pathname === href && style.active)}
+			to={href}
+		>
 			<Icon size={size} />
 			{length && <Counter length={length} />}
+			{pathname === href && <span className={cn(style.activeLink)}></span>}
 		</Link>
 	)
 }
