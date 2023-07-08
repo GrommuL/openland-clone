@@ -1,19 +1,23 @@
 import cn from 'classnames'
 import style from './RegisterPage.module.scss'
 import Logo from '@/assets/Logo.png'
+
 import { CameraIcon } from '@/components/UI/Icons/CameraIcon'
-import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/UI/Button'
 import { Heading } from '@/components/UI/Heading'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { useState } from 'react'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth, db, storage } from '@/config/firebase'
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { doc, setDoc } from 'firebase/firestore'
-import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
-import { getAccess } from '@/redux/slices/userSlice'
 import { useUploadImgage } from '@/utils/hooks/useUploadImage'
+import { registerSchema } from '@/utils/schemas/authSchema'
+import { RegisterValues } from '@/types/RegisterValues'
+import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
+import { addCurrentUser, getAccess } from '@/redux/slices/userSlice'
+import { auth, db, storage } from '@/config/firebase'
+
+import { Link, useNavigate } from 'react-router-dom'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
@@ -25,13 +29,15 @@ export const RegisterPage = () => {
 		handleSubmit,
 		reset,
 		formState: { errors }
-	} = useForm<FieldValues>({
+	} = useForm<RegisterValues>({
 		defaultValues: {
 			firstName: '',
 			lastName: '',
 			email: '',
 			password: ''
-		}
+		},
+		mode: 'onBlur',
+		resolver: yupResolver(registerSchema)
 	})
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -63,17 +69,31 @@ export const RegisterPage = () => {
 					await setDoc(doc(db, 'userChats', response.user.uid), {})
 				})
 			})
+			const currentUser = await getDoc(doc(db, 'users', response.user.uid))
+			const responseData = currentUser.data()
+			const user = {
+				id: responseData?.uid,
+				firstName: responseData?.firstName,
+				lastName: responseData?.lastName,
+				email: responseData?.email,
+				avatar: responseData?.photoURL
+			}
+			dispatch(addCurrentUser(user))
 			dispatch(getAccess(true))
 			reset()
 			navigate('/')
 		} catch (error) {
-			console.log(error)
+			dispatch(getAccess(false))
 		}
 	}
 
 	return (
 		<main className={cn(style.registerPage)}>
-			<form className={cn(style.content)} onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className={cn(style.content)}
+				onSubmit={handleSubmit(onSubmit)}
+				noValidate
+			>
 				<img className={cn(style.logo)} src={Logo} alt='Logo' />
 				<Heading
 					title='New account'
@@ -95,34 +115,46 @@ export const RegisterPage = () => {
 							<CameraIcon />
 						)}
 					</div>
-					<input
-						className={cn(style.input)}
-						id='firstName'
-						type='text'
-						placeholder='First Name'
-						{...register('firstName')}
-					/>
-					<input
-						className={cn(style.input)}
-						id='lastName'
-						type='text'
-						placeholder='Last Name'
-						{...register('lastName')}
-					/>
-					<input
-						className={cn(style.input)}
-						id='email'
-						type='email'
-						placeholder='Email'
-						{...register('email')}
-					/>
-					<input
-						className={cn(style.input)}
-						id='password'
-						type='password'
-						placeholder='Password'
-						{...register('password')}
-					/>
+					<div className={cn(style.box)}>
+						<input
+							className={cn(style.input)}
+							id='firstName'
+							type='text'
+							placeholder='First Name'
+							{...register('firstName')}
+						/>
+						<span className={cn(style.error)}>{errors.firstName?.message}</span>
+					</div>
+					<div className={cn(style.box)}>
+						<input
+							className={cn(style.input)}
+							id='lastName'
+							type='text'
+							placeholder='Last Name'
+							{...register('lastName')}
+						/>
+						<span className={cn(style.error)}>{errors.lastName?.message}</span>
+					</div>
+					<div className={cn(style.box)}>
+						<input
+							className={cn(style.input)}
+							id='email'
+							type='email'
+							placeholder='Email'
+							{...register('email')}
+						/>
+						<span className={cn(style.error)}>{errors.email?.message}</span>
+					</div>
+					<div className={cn(style.box)}>
+						<input
+							className={cn(style.input)}
+							id='password'
+							type='password'
+							placeholder='Password'
+							{...register('password')}
+						/>
+						<span className={cn(style.error)}>{errors.password?.message}</span>
+					</div>
 				</div>
 				<Button label='Sign up' type='submit' />
 				<span className={cn(style.warning)}>

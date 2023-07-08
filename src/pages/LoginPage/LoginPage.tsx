@@ -4,21 +4,17 @@ import Logo from '@/assets/Logo.png'
 import { Heading } from '@/components/UI/Heading'
 import { Button } from '@/components/UI/Button'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/config/firebase'
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '@/config/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
-import { getAccess } from '@/redux/slices/userSlice'
+import { addCurrentUser, getAccess } from '@/redux/slices/userSlice'
+import { doc, getDoc } from 'firebase/firestore'
 
 export const LoginPage = () => {
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors }
-	} = useForm<FieldValues>({
+	const { register, handleSubmit, reset } = useForm<FieldValues>({
 		defaultValues: {
 			email: '',
 			password: ''
@@ -28,10 +24,25 @@ export const LoginPage = () => {
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			await signInWithEmailAndPassword(auth, data.email, data.password)
+			onAuthStateChanged(auth, async (currentuser) => {
+				if (currentuser) {
+					const response = await getDoc(doc(db, 'users', currentuser.uid))
+					const responseData = response.data()
+					const user = {
+						id: responseData?.uid,
+						firstName: responseData?.firstName,
+						lastName: responseData?.lastName,
+						email: responseData?.email,
+						avatar: responseData?.photoURL
+					}
+					dispatch(addCurrentUser(user))
+				}
+			})
 			dispatch(getAccess(true))
 			reset()
 			navigate('/')
 		} catch (error) {
+			dispatch(getAccess(false))
 			console.log(error)
 		}
 	}

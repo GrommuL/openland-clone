@@ -1,0 +1,27 @@
+@import '@/styles/vars.scss';
+.box {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	width: 100%;
+	min-height: 80px;
+}
+.input {
+	font-weight: 600;
+	padding: 16px;
+	width: 100%;
+	max-width: 320px;
+	border-radius: 8px;
+	background: rgba(201, 204, 209, 0.24);
+	&::placeholder {
+		color: $fgTertiary;
+	}
+	&:focus {
+		background: rgba(169, 174, 184, 0.24);
+	}
+}
+.error {
+	padding-left: 10px;
+	font-size: 13px;
+	color: $accentNegative;
+}

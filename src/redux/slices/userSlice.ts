@@ -18,7 +18,11 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		addCurrentUser: (state, action: PayloadAction<UserType>) => {
-			state.currentUser = action.payload
+			state.currentUser.id = action.payload.id
+			state.currentUser.firstName = action.payload.firstName
+			state.currentUser.lastName = action.payload.lastName
+			state.currentUser.avatar = action.payload.avatar
+			state.currentUser.email = action.payload.email
 		},
 		clearCurrentUser: (state) => {
 			state.currentUser = {
