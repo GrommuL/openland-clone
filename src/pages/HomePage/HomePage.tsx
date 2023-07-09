@@ -3,6 +3,7 @@ import cn from 'classnames'
 import style from './HomePage.module.scss'
 import { SearchUser } from '@/components/SearchUser'
 import { ChatList } from '@/components/ChatList'
+import { ChatContent } from '@/components/ChatContent'
 
 export const HomePage = () => {
 	return (
@@ -12,7 +13,7 @@ export const HomePage = () => {
 				<SearchUser />
 				<ChatList />
 			</div>
-			<div className={cn(style.appInfo)}>contact info</div>
+			<ChatContent />
 		</AppContainer>
 	)
 }

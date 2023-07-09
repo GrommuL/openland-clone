@@ -11,9 +11,11 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import userSlice from './slices/userSlice'
+import chatSlice from './slices/chatSlice'
 
 const rootReducer = combineReducers({
-	user: userSlice
+	user: userSlice,
+	chat: chatSlice
 })
 
 const persistConfig = {
