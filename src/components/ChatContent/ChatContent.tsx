@@ -4,9 +4,43 @@ import { ButtonWithIcon } from '../UI/ButtonWithIcon'
 import { BiSend } from 'react-icons/bi'
 import { Message } from '../Message'
 import { useAppSelector } from '@/utils/hooks/useAppSelector'
+import { useEffect, useState } from 'react'
+import {
+	DocumentData,
+	Timestamp,
+	arrayUnion,
+	doc,
+	onSnapshot,
+	updateDoc
+} from 'firebase/firestore'
+import { db } from '@/config/firebase'
+import { v4 as uuid } from 'uuid'
 
 export const ChatContent = () => {
+	const [messages, setMessages] = useState<DocumentData>()
+	const [text, setText] = useState('')
+	const chatId = useAppSelector((state) => state.chat.chatId)
 	const chatUser = useAppSelector((state) => state.chat.user)
+	const currentUserId = useAppSelector((state) => state.user.currentUser.id)
+
+	useEffect(() => {
+		onSnapshot(doc(db, 'chats', chatId), (doc) => {
+			doc.exists() && setMessages(doc.data().messages)
+		})
+	}, [chatId])
+
+	const sendMessage = async () => {
+		await updateDoc(doc(db, 'chats', chatId), {
+			messages: arrayUnion({
+				id: uuid(),
+				text,
+				senderId: currentUserId,
+				date: Timestamp.now()
+			})
+		})
+		setText('')
+	}
+
 	return (
 		<div className={cn(style.chat)}>
 			<div className={cn(style.header)}>
@@ -18,19 +52,26 @@ export const ChatContent = () => {
 				</div>
 			</div>
 			<div className={cn(style.chatField)}>
-				<Message />
-				<Message />
-				<Message />
-				<Message asd={true} />
+				{messages &&
+					messages.map((msg: DocumentData) => (
+						<Message key={msg.id} message={msg} />
+					))}
 			</div>
-			<form className={cn(style.form)}>
+			<div className={cn(style.form)}>
 				<input
 					className={cn(style.input)}
 					type='text'
 					placeholder='Write a message…'
+					onChange={(e) => setText(e.target.value)}
+					value={text}
 				/>
-				<ButtonWithIcon icon={BiSend} size={24} type='submit' />
-			</form>
+				<ButtonWithIcon
+					icon={BiSend}
+					size={24}
+					type='submit'
+					onClick={sendMessage}
+				/>
+			</div>
 		</div>
 	)
 }
