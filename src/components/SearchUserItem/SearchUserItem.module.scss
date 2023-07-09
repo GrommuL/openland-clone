@@ -1,6 +1,7 @@
 @import '@/styles/vars.scss';
 
 .user {
+	position: relative;
 	width: 100%;
 	padding: 8px 16px;
 	display: flex;
@@ -10,6 +11,19 @@
 	transition: all 0.3s ease;
 	&:hover {
 		background: $bgSecondary;
+		&::before {
+			animation: fadein 0.3s forwards;
+		}
+	}
+	&::before {
+		content: '';
+		width: 24px;
+		height: 24px;
+		background-image: url('./messageIcon.png');
+		position: absolute;
+		top: 20px;
+		right: 10px;
+		animation: fadeout 0.3s forwards;
 	}
 }
 .avatar {
@@ -35,4 +49,21 @@
 	font-size: 14px;
 	line-height: 20px;
 	color: $fgSecondary;
+}
+
+@keyframes fadein {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeout {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
