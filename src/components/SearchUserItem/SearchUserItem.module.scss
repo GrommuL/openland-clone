@@ -24,9 +24,15 @@
 .userName {
 	font-weight: 600;
 }
-.status {
+.online {
 	padding-left: 2px;
 	font-size: 14px;
 	line-height: 20px;
 	color: $accentPrimary;
+}
+.offline {
+	padding-left: 2px;
+	font-size: 14px;
+	line-height: 20px;
+	color: $fgSecondary;
 }

@@ -10,6 +10,8 @@ export const SearchUser = () => {
 	const [searchValue, setSearchValue] = useState('')
 	const [user, setUser] = useState<DocumentData[] | null>(null)
 
+	//Сделать кастомный хук
+
 	const handleSearch = async () => {
 		const users = collection(db, 'users')
 		const data = await getDocs(users)
@@ -56,8 +58,11 @@ export const SearchUser = () => {
 				)}
 			</div>
 			{user &&
-				user.map((el) => (
-					<SearchUserItem user={el.data()} key={el.data().uid} />
+				user.map((searchUser) => (
+					<SearchUserItem
+						user={searchUser.data()}
+						key={searchUser.data().uid}
+					/>
 				))}
 		</div>
 	)
