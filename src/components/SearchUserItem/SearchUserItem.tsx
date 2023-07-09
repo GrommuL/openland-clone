@@ -5,12 +5,16 @@ import { useAppSelector } from '@/utils/hooks/useAppSelector'
 
 interface SearchUserItemProps {
 	user: DocumentData
+	onClick?: () => void
 }
 
-export const SearchUserItem: React.FC<SearchUserItemProps> = ({ user }) => {
+export const SearchUserItem: React.FC<SearchUserItemProps> = ({
+	user,
+	onClick
+}) => {
 	const id = useAppSelector((state) => state.user.currentUser.id)
 	return (
-		<div className={cn(style.user)} key={user.uid}>
+		<div className={cn(style.user)} key={user.uid} onClick={onClick}>
 			<img className={cn(style.avatar)} src={user.photoURL} alt='' />
 			<div className={cn(style.userInfo)}>
 				<h3
