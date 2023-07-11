@@ -24,9 +24,11 @@ export const ChatContent = () => {
 	const currentUserId = useAppSelector((state) => state.user.currentUser.id)
 
 	useEffect(() => {
-		onSnapshot(doc(db, 'chats', chatId), (doc) => {
-			doc.exists() && setMessages(doc.data().messages)
-		})
+		if (chatId.length) {
+			onSnapshot(doc(db, 'chats', chatId), (doc) => {
+				doc.exists() && setMessages(doc.data().messages)
+			})
+		}
 	}, [chatId])
 
 	const sendMessage = async () => {

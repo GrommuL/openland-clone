@@ -35,10 +35,18 @@ const chatSlice = createSlice({
 			state.user.lastName = action.payload.user.lastName
 			state.user.photoURL = action.payload.user.photoURL
 			state.user.email = action.payload.user.email
+		},
+		clearChat: (state) => {
+			state.chatId = ''
+			state.user.uid = ''
+			state.user.firstName = ''
+			state.user.lastName = ''
+			state.user.photoURL = ''
+			state.user.email = ''
 		}
 	}
 })
 
-export const { getChat } = chatSlice.actions
+export const { getChat, clearChat } = chatSlice.actions
 
 export default chatSlice.reducer

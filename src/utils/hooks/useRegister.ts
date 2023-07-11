@@ -11,6 +11,7 @@ export const useRegister = () => {
 	const dateMark = new Date().getTime()
 
 	const createUser = async (data: FieldValues) => {
+		const useAvatar = data?.avatar[0]
 		const response = await createUserWithEmailAndPassword(
 			auth,
 			data.email,
@@ -21,7 +22,7 @@ export const useRegister = () => {
 			`${data.firstName + data.lastName + dateMark}`
 		)
 
-		await uploadBytesResumable(storageRef, data.avatar[0]).then(() => {
+		await uploadBytesResumable(storageRef, useAvatar).then(() => {
 			getDownloadURL(storageRef).then(async (downloadUrl) => {
 				await updateProfile(response.user, {
 					displayName: `${data.firstName} ${data.lastName}`,

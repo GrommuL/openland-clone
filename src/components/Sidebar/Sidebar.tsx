@@ -10,6 +10,7 @@ import { signOut } from 'firebase/auth'
 import { auth } from '@/config/firebase'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
 import { clearCurrentUser, getAccess } from '@/redux/slices/userSlice'
+import { clearChat } from '@/redux/slices/chatSlice'
 
 export const Sidebar = () => {
 	const dispatch = useAppDispatch()
@@ -17,6 +18,7 @@ export const Sidebar = () => {
 	const logOut = () => {
 		signOut(auth)
 		dispatch(clearCurrentUser())
+		dispatch(clearChat())
 		dispatch(getAccess(false))
 		navigate('/start')
 	}

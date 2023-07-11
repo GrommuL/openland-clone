@@ -9,16 +9,13 @@ import { useUploadImgage } from '@/utils/hooks/useUploadImage'
 import { registerSchema } from '@/utils/schemas/authSchema'
 import { RegisterValues } from '@/types/RegisterValues'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
-import { addCurrentUser, getAccess } from '@/redux/slices/userSlice'
-import { auth, db, storage } from '@/config/firebase'
+import { getAccess } from '@/redux/slices/userSlice'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { doc, setDoc } from 'firebase/firestore'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRegister } from '@/utils/hooks/useRegister'
+import { clearChat } from '@/redux/slices/chatSlice'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
@@ -44,7 +41,8 @@ export const RegisterPage = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			createUser(data)
+			await createUser(data)
+			dispatch(clearChat())
 			dispatch(getAccess(true))
 			reset()
 			navigate('/')
