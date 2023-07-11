@@ -18,12 +18,14 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRegister } from '@/utils/hooks/useRegister'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
 	const { avatar, getUploadImage } = useUploadImgage()
 	const uploadAvatar = avatar && URL.createObjectURL(avatar)
 	const dispatch = useAppDispatch()
+	const { createUser } = useRegister()
 	const {
 		register,
 		handleSubmit,
@@ -42,43 +44,7 @@ export const RegisterPage = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			const response = await createUserWithEmailAndPassword(
-				auth,
-				data.email,
-				data.password
-			)
-			const dateMark = new Date().getTime()
-			const storageRef = ref(
-				storage,
-				`${data.firstName + data.lastName + dateMark}`
-			)
-
-			await uploadBytesResumable(storageRef, data.avatar[0]).then(() => {
-				getDownloadURL(storageRef).then(async (downloadUrl) => {
-					await updateProfile(response.user, {
-						displayName: `${data.firstName} ${data.lastName}`,
-						photoURL: downloadUrl
-					})
-					await setDoc(doc(db, 'users', response.user.uid), {
-						uid: response.user.uid,
-						firstName: data.firstName,
-						lastName: data.lastName,
-						email: data.email,
-						photoURL: downloadUrl
-					})
-					dispatch(
-						addCurrentUser({
-							id: response.user.uid,
-							firstName: data.firstName,
-							lastName: data.lastName,
-							email: data.email,
-							avatar: downloadUrl
-						})
-					)
-					await setDoc(doc(db, 'userChats', response.user.uid), {})
-				})
-			})
-
+			createUser(data)
 			dispatch(getAccess(true))
 			reset()
 			navigate('/')
