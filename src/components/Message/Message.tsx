@@ -3,6 +3,7 @@ import style from './Message.module.scss'
 import { DocumentData } from 'firebase/firestore'
 import { useAppSelector } from '@/utils/hooks/useAppSelector'
 import { useEffect, useRef } from 'react'
+import { useGetDate } from '@/utils/hooks/useGetDate'
 interface MessageProps {
 	message: DocumentData
 }
@@ -11,14 +12,13 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
 	const currentUser = useAppSelector((state) => state.user.currentUser)
 	const chatUser = useAppSelector((state) => state.chat.user)
 	const ref = useRef<null | HTMLDivElement>(null)
-	const today = new Date(message?.date.seconds * 1000)
-	const yyyy = today.getFullYear()
-	const mm = today.getMonth() + 1
-	const dd = today.getDate()
+	const { getTodayDateFromSeconds } = useGetDate()
+	const { year, month, day } = getTodayDateFromSeconds(message?.date.seconds)
 
 	useEffect(() => {
 		ref.current?.scrollIntoView({ behavior: 'smooth' })
 	}, [message])
+
 	return (
 		<div
 			className={cn(
@@ -34,11 +34,11 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
 							? currentUser.avatar
 							: chatUser.photoURL
 					}
-					alt=''
+					alt='avatar'
 				/>
-				<span>{`${dd < 10 ? '0' + dd : dd}.${
-					mm < 10 ? '0' + mm : mm
-				}.${yyyy}`}</span>
+				<span>{`${day < 10 ? '0' + day : day}.${
+					month < 10 ? '0' + month : month
+				}.${year}`}</span>
 			</div>
 			<div className={cn(style.messageContent)}>
 				<p className={cn(style.text)}>{message?.text}</p>
