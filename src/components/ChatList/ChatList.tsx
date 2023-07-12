@@ -6,6 +6,7 @@ import { DocumentData, doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
 import { InitialStateUserType, getChat } from '@/redux/slices/chatSlice'
+import { ChatListUserItem } from '../ChatListUserItem/ChatListUserItem'
 
 export const ChatList = () => {
 	const dispatch = useAppDispatch()
@@ -42,25 +43,12 @@ export const ChatList = () => {
 			<div>
 				{chatList &&
 					chatList.map((chat) => (
-						<div
-							className={cn(
-								style.user,
-								currentChatUserId === chat[1].userInfo.uid && style.active
-							)}
+						<ChatListUserItem
 							key={chat[0]}
-							onClick={() => handleSelectChat(chat[1]?.userInfo)}
-						>
-							<img
-								className={cn(style.avatar)}
-								src={chat[1].userInfo.photoURL}
-								alt=''
-							/>
-							<div className={cn(style.userInfo)}>
-								<h3
-									className={cn(style.userName)}
-								>{`${chat[1].userInfo.firstName} ${chat[1].userInfo.lastName}`}</h3>
-							</div>
-						</div>
+							currentChatUserId={currentChatUserId}
+							chatUser={chat}
+							onClick={handleSelectChat}
+						/>
 					))}
 			</div>
 		</div>

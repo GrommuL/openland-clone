@@ -8,38 +8,6 @@
 	letter-spacing: 0.36px;
 }
 
-.user {
-	position: relative;
-	width: 100%;
-	padding: 8px 16px;
-	display: flex;
-	align-items: center;
-	gap: 16px;
-	cursor: pointer;
-	transition: all 0.3s ease;
-	&:hover {
-		background: $bgSecondary;
-	}
-}
-.active {
-	background: $accentPrimary;
-	transition: all 0.3s ease;
-	&:hover {
-		background: $accentHoverPrimary;
-	}
-}
-.avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 100%;
-}
-.userInfo {
-	display: flex;
-	flex-direction: column;
-}
-.userName {
-	font-weight: 600;
-}
 .online {
 	padding-left: 2px;
 	font-size: 14px;
