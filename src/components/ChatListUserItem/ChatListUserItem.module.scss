@@ -32,3 +32,16 @@
 .userName {
 	font-weight: 600;
 }
+
+.online {
+	padding-left: 2px;
+	font-size: 14px;
+	line-height: 20px;
+	color: $accentPositive;
+}
+.offline {
+	padding-left: 2px;
+	font-size: 14px;
+	line-height: 20px;
+	color: $fgSecondary;
+}
