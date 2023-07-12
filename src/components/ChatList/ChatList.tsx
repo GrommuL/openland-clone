@@ -6,7 +6,7 @@ import { DocumentData, doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
 import { InitialStateUserType, getChat } from '@/redux/slices/chatSlice'
-import { ChatListUserItem } from '../ChatListUserItem/ChatListUserItem'
+import { ChatListUserItem } from '../ChatListUserItem'
 
 export const ChatList = () => {
 	const dispatch = useAppDispatch()
