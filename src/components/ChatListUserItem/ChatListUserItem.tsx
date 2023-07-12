@@ -2,6 +2,7 @@ import cn from 'classnames'
 import style from './ChatListUserItem.module.scss'
 import { DocumentData } from 'firebase/firestore'
 import { InitialStateUserType } from '@/redux/slices/chatSlice'
+import { useAppSelector } from '@/utils/hooks/useAppSelector'
 
 interface ChatListUserItemProps {
 	currentChatUserId: string
@@ -14,13 +15,13 @@ export const ChatListUserItem: React.FC<ChatListUserItemProps> = ({
 	chatUser,
 	onClick
 }) => {
+	const id = useAppSelector((state) => state.user.currentUser.id)
 	return (
 		<div
 			className={cn(
 				style.user,
 				currentChatUserId === chatUser[1].userInfo.uid && style.active
 			)}
-			key={chatUser[0]}
 			onClick={() => onClick(chatUser[1]?.userInfo)}
 		>
 			<img

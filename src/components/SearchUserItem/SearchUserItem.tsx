@@ -20,11 +20,6 @@ export const SearchUserItem: React.FC<SearchUserItemProps> = ({
 				<h3
 					className={cn(style.userName)}
 				>{`${user.firstName} ${user.lastName}`}</h3>
-				{user.uid === id ? (
-					<p className={cn(style.online)}>online</p>
-				) : (
-					<p className={cn(style.offline)}>offline</p>
-				)}
 			</div>
 		</div>
 	)
