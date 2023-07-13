@@ -21,6 +21,7 @@ export const SearchUser = () => {
 					value={searchValue}
 					onKeyDown={handleKey}
 					onChange={(e) => setSearchValue(e.target.value)}
+					title='To add a chat, select a user from the list below and click the button "Enter"'
 				/>
 				{searchValue && (
 					<button
