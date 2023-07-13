@@ -5,7 +5,7 @@ import Logo from '@/assets/Logo.png'
 import { CameraIcon } from '@/components/UI/Icons/CameraIcon'
 import { Button } from '@/components/UI/Button'
 import { Heading } from '@/components/UI/Heading'
-import { useUploadImgage } from '@/utils/hooks/useUploadImage'
+import { useUploadImage } from '@/utils/hooks/useUploadImage'
 import { registerSchema } from '@/utils/schemas/authSchema'
 import { RegisterValues } from '@/types/RegisterValues'
 import { useAppDispatch } from '@/utils/hooks/useAppDispatch'
@@ -19,7 +19,7 @@ import { clearChat } from '@/redux/slices/chatSlice'
 
 export const RegisterPage = () => {
 	const navigate = useNavigate()
-	const { avatar, getUploadImage } = useUploadImgage()
+	const { avatar, getUploadImage } = useUploadImage()
 	const uploadAvatar = avatar && URL.createObjectURL(avatar)
 	const dispatch = useAppDispatch()
 	const { createUser } = useRegister()

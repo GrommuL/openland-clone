@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useUploadImgage = () => {
+export const useUploadImage = () => {
 	const [avatar, setAvatar] = useState<File>()
 	const getUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
